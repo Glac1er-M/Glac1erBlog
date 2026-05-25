@@ -37,18 +37,31 @@ const pageTitle = t("header.friends") + " - " + siteConfig.title;
                         href={friend.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        class="flex items-center p-4 border border-[var(--button-border-color)] rounded-lg shadow-sm active:bg-[var(--button-hover-color)] hover:bg-[var(--button-hover-color)] transition-all duration-300 hover:scale-105"
+                        class="group flex items-center justify-between p-4 border border-[var(--button-border-color)] rounded-lg shadow-sm active:bg-[var(--button-hover-color)] hover:bg-[var(--button-hover-color)] transition-all duration-300"
                     >
-                        <img 
-                            src={friend.avatar} 
-                            alt={friend.name} 
-                            class="w-16 h-16 rounded-full object-cover mr-4"
-                            onerror="this.src='https://www.gravatar.com/avatar/?d=mp'"
-                        />
-                        <div class="flex-1 min-w-0">
-                            <h2 class="font-bold text-lg truncate">{friend.name}</h2>
-                            <p class="text-[var(--text-color-70)] text-sm">{friend.description}</p>
+                        <div class="flex items-center min-w-0">
+                            <img 
+                                src={friend.avatar} 
+                                alt={friend.name} 
+                                class="w-16 h-16 rounded-full object-cover mr-4 flex-shrink-0"
+                                onerror="this.src='https://www.gravatar.com/avatar/?d=mp'"
+                            />
+                            <div class="min-w-0">
+                                <h2 class="font-bold text-lg truncate transition-colors duration-300 group-hover:text-[var(--link-color)]">{friend.name}</h2>
+                                <p class="text-[var(--text-color-70)] text-sm truncate">{friend.description}</p>
+                            </div>
                         </div>
+                        
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke-width="2" 
+                            stroke="currentColor" 
+                            class="w-5 h-5 text-[var(--link-color)] opacity-0 transform translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ml-2 flex-shrink-0"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
                     </a>
                 ))
             }

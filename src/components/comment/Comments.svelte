@@ -419,7 +419,7 @@
     opacity: 0.85;
   }
   .comment-preview :global(pre) {
-    background: rgba(0,0,0,0.08);
+    background: color-mix(in srgb, var(--text-color) 8%, transparent);
     border-radius: 4px;
     padding: 0.75rem;
     overflow-x: auto;
@@ -427,7 +427,7 @@
     font-size: 0.85rem;
   }
   .comment-preview :global(code) {
-    background: rgba(0,0,0,0.06);
+    background: color-mix(in srgb, var(--text-color) 6%, transparent);
     border-radius: 3px;
     padding: 0.15rem 0.3rem;
     font-size: 0.85rem;
@@ -467,7 +467,7 @@
   }
   .comment-preview :global(th) {
     font-weight: 600;
-    background: rgba(0,0,0,0.04);
+    background: color-mix(in srgb, var(--text-color) 8%, transparent);
   }
   .comment-preview :global(del) {
     text-decoration: line-through;
