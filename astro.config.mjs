@@ -17,14 +17,19 @@ import { remarkCombined } from './src/plugins/remark-combined.mjs';
 import { remarkTypst } from './src/plugins/remark-typst.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { remarkLqip } from './src/plugins/remark-lqip.js';
+import expressiveCode from 'astro-expressive-code';
 
 import svelte from "@astrojs/svelte";
 
 import { siteConfig } from './src/config';
 
+const site = process.env.ASTRO_SITE ?? 'https://momo.motues.top';
+const base = process.env.ASTRO_BASE ?? '/';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://momo.motues.top', // Root URL of site
+  site,
+  base,
   i18n: {
     locales: ['zh-cn', 'en'],
     defaultLocale: 'zh-cn',
@@ -42,13 +47,8 @@ export default defineConfig({
       "material-symbols": ["*"],
       "flue": ["*"],
     }
-  }), svelte()],
+  }), svelte(), expressiveCode()],
   markdown: {
-    shikiConfig: {
-      theme: 'one-dark-pro', // code theme
-      // theme: 'github-dark',
-      wrap: false
-    },
     remarkPlugins: [
       remarkMath,
       remarkReadingTime,
