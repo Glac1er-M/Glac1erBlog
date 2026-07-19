@@ -79,6 +79,11 @@ export default defineConfig({
     ]
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    // Typst's compiler loads a platform-specific `.node` binary. It must stay
+    // external during Astro's SSR build instead of being parsed by Rollup.
+    ssr: {
+      external: ['@myriaddreamin/typst-ts-node-compiler']
+    }
   }
 });
