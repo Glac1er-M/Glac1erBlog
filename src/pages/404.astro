@@ -1,6 +1,5 @@
 ---
 import MainPageLayout from '@layouts/MainPageLayout.astro';
-import ImageModule from '@components/misc/ImageModule.astro';
 import Cover from '@components/Cover.astro';
 import { getRelativeLocaleUrl } from '@utils/url-utils';
 
@@ -21,10 +20,6 @@ const indexPage = getRelativeLocaleUrl(currentLang, "/");
     <div class="mx-auto w-full max-w-[var(--page-width)] px-4 text-center">
         <Cover title={t("page404.title")} subTitle={t("page404.subTitle")} />
         
-        <div class="my-4">
-            <ImageModule src={"assets/404.png"} alt="404" class="mx-auto w-auto h-auto hover:animate-spin transition-transform" />
-        </div>
-
         <div class="mt-8 flex flex-col items-center">
             <p class="text-[var(--text-color-70)]">{t("page404.notice")}</p>
             <div class=" mt-2 flex gap-4">

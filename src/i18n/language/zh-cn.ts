@@ -108,8 +108,8 @@ const translation: Translation = {
         description: "此文章为草稿，只出现在测试环境，生产环境将不会显示。"
     },
     page404: {
-        title: "404 - 虚无之境",
-        subTitle: "看起来你闯入了一片代码荒原，这里还没有被开发出来。",
+        title: "404",
+        subTitle: "页面尚未创建！",
         backToHome: "返回首页",
         backToPreview: "返回上一页",
         errorCode: "错误代码：404 - 虚无之境",
