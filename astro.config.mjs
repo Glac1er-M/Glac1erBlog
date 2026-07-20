@@ -23,7 +23,7 @@ import svelte from "@astrojs/svelte";
 
 import { siteConfig } from './src/config';
 
-const site = process.env.ASTRO_SITE ?? 'https://momo.motues.top';
+const site = process.env.ASTRO_SITE ?? 'https://glac1er.top';
 const base = process.env.ASTRO_BASE ?? '/';
 
 // https://astro.build/config

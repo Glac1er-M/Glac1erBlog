@@ -1,5 +1,8 @@
 export type SiteConfig = {
+    /** Used in page titles, RSS metadata, and other site-level labels. */
     title: string;
+    /** Text displayed in the header logo on desktop and mobile navigation. */
+    headerTitle: string;
     subTitle: string;
 
     favicon: string;
