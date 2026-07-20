@@ -59,6 +59,5 @@ export const friendLinkConfig: FriendLink[] = [
         avatar: 'https://avatars.githubusercontent.com/u/44914786',
         url: 'https://astro.build',
         description: 'Build fast websites, faster.'
-    }
-    // Add more friend links here
+    },
 ]

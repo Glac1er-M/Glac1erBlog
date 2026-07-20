@@ -9,13 +9,13 @@ const translation: Translation = {
     },
     cover: {
         title: {
-            home: "Welcome to Momo's Blog",
+            home: "Welcome",
             archive: "Archive",
             about: "About",
             friends: "Friends",
         },
         subTitle: {
-            home: "Life is colorful!",
+            home: "",
             archive: "Total of {count} articles",
             about: "A minimalist blog template",
             friends: "Interesting Souls",
