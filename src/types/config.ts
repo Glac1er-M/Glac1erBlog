@@ -21,7 +21,6 @@ export type SiteConfig = {
         backendUrl: string;
     };
     theme: {
-        AOS: boolean;
         LQIP: boolean;
         PhotoSwipe: boolean;
     }

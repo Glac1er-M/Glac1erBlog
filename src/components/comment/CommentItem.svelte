@@ -149,7 +149,7 @@
   $: hasHiddenMobileReplies = hiddenMobileCount > 0;
 </script>
 
-<div id="comment-{c.id}" data-aos="fade-up" class="flex gap-2 md:gap-3 w-full max-w-full">
+<div id="comment-{c.id}" class="flex gap-2 md:gap-3 w-full max-w-full">
   {#if c.url}
   <a href={c.url} target="_blank" rel="noopener noreferrer" class="w-10 h-10 shrink-0">
     <img src={avatarUrl} alt="avatar" class="w-10 h-10 rounded-full object-cover"/>
