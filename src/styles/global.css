@@ -4,6 +4,15 @@
 @import "./scrollbar.css";
 @import "@chinese-fonts/lxgwwenkaibright/dist/LXGWBright-Medium/result.css";
 
+/* Futura for the site logo (headerTitle). Chinese glyphs fall back to Noto Serif SC. */
+@font-face {
+  font-family: "Futura LT Pro";
+  src: url("/fonts/FuturaLTPro-Book.otf") format("opentype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     background-color: var(--bg-color);
