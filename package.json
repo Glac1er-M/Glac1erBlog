@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
-    "preview": "astro preview",
+    "preview": "pnpm run build && wrangler dev",
     "astro": "astro",
-    "newpost": "node script/newpost.js"
+    "newpost": "node script/newpost.js",
+    "deploy": "pnpm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/svelte": "^7.2.4",
     "@chinese-fonts/lxgwwenkaibright": "^2.0.0",
@@ -51,6 +54,7 @@
     "@iconify-json/fluent": "^1.2.45",
     "@iconify-json/material-symbols": "^1.2.35",
     "@iconify-json/simple-icons": "^1.2.48",
-    "@iconify-json/vscode-icons": "^1.2.29"
+    "@iconify-json/vscode-icons": "^1.2.29",
+    "wrangler": "^4.112.0"
   }
 }
