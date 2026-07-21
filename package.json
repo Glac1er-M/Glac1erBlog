@@ -18,6 +18,7 @@
     "@expressive-code/plugin-line-numbers": "^0.44.0",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource/eb-garamond": "^5.2.7",
+    "@fontsource/noto-sans-sc": "^5.3.0",
     "@fontsource/noto-serif-sc": "^5.2.9",
     "@iconify/svelte": "^5.2.1",
     "@myriaddreamin/typst-ts-node-compiler": "0.7.0-rc2",
