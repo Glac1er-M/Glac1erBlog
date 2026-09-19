@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
     headerTitle: "GLACIER",
     subTitle: "",
 
-    favicon: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
+    favicon: "/favicon/icon.png", // Path of the favicon, relative to the /public directory
 
     pageSize: 6, // Number of posts per page
     toc: {
