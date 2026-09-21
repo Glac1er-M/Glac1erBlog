@@ -18,14 +18,14 @@ const className = Astro.props.class
     const spoilers = document.querySelectorAll('.spoiler');
     
     spoilers.forEach(el => {
-      let timeoutId = null;
+      let timeoutId: ReturnType<typeof setTimeout> | null = null;
       let clickTime = 0;
 
       el.addEventListener('click', () => {
         el.classList.add('revealed');
         clickTime = Date.now();
 
-        if (timeoutId) clearTimeout(timeoutId);
+        if (timeoutId !== null) clearTimeout(timeoutId);
 
         const isMobile = window.innerWidth < 776;
 
@@ -259,12 +259,13 @@ const className = Astro.props.class
     const blocks = document.querySelectorAll("pre");
 
     blocks.forEach((block) => {
-      if (block.parentElement.classList.contains("code-block-wrapper")) return;
+      const parent = block.parentElement;
+      if (!parent || parent.classList.contains("code-block-wrapper")) return;
 
       const wrapper = document.createElement("div");
       wrapper.className = "code-block-wrapper";
 
-      block.parentNode.insertBefore(wrapper, block);
+      parent.insertBefore(wrapper, block);
       wrapper.appendChild(block);
 
       const button = document.createElement("button");
@@ -292,7 +293,7 @@ const className = Astro.props.class
 { siteConfig.theme.LQIP &&
 <script>
   function handleLqipImages() {
-    const lqipImages = document.querySelectorAll('.lqip-markdown-img');
+    const lqipImages = document.querySelectorAll<HTMLImageElement>('.lqip-markdown-img');
     lqipImages.forEach(img => {
       if (img.complete) {
         img.classList.add('lqip-loaded');

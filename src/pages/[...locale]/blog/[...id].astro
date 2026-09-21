@@ -22,19 +22,21 @@ import { getBlogEntrySort } from '@utils/contentUtils'
 import { getRelativeLocaleUrl } from '@utils/urlUtils';
 
 
-const currentLang = Astro.currentLocale || i18n!.defaultLocale;
+const astroI18n = i18n!;
+const currentLang = Astro.currentLocale || astroI18n.defaultLocale;
 const t = i18nit(currentLang);
 
 export async function getStaticPaths() {
     
     // 获取所有支持的语言
-    const locales = i18n?.locales || [i18n?.defaultLocale];
+    const locales = astroI18n.locales;
     
     // 为每种语言和每篇文章组合生成路由
     const paths = [];
     
     for (const locale of locales) {
-        const blogEntries = await getBlogEntrySort(locale);
+        const localeCode = typeof locale === 'string' ? locale : locale.path;
+        const blogEntries = await getBlogEntrySort(localeCode);
 
         for (let i = 0; i < blogEntries.length; i++) {
             const entry = blogEntries[i];
@@ -43,7 +45,7 @@ export async function getStaticPaths() {
 
             paths.push({
                 params: {
-                    locale: locale === i18n?.defaultLocale ? undefined : locale,
+                    locale: localeCode === astroI18n.defaultLocale ? undefined : localeCode,
                     id: entry.id
                 },
                 props: { 

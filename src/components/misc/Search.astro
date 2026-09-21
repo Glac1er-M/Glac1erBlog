@@ -1,9 +1,13 @@
 ---
-import type { SearchResult } from "@/global"
 import { baseUrl } from "@utils/urlUtils";
-import { getEntry, render } from 'astro:content'
 import { i18n } from "astro:config/client";
 import i18nit from "@i18n/translation";
+
+interface SearchResult {
+  url: string;
+  meta: { title: string };
+  excerpt: string;
+}
 
 
 
@@ -103,7 +107,8 @@ function initSearchModal() {
   searchButton.addEventListener('click', openModal);
   closeSearch?.addEventListener('click', closeModal);
   searchModal.addEventListener('click', (e) => {
-    if (!modalContent?.contains(e.target)) closeModal();
+    const target = e.target;
+    if (!(target instanceof Node) || !modalContent?.contains(target)) closeModal();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !searchModal.classList.contains('opacity-0')) {

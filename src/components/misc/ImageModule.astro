@@ -22,9 +22,7 @@ const isLocal = !(
     src.startsWith("/") ||
     src.startsWith("http")
 );
-const isPublic = src.startsWith("/");
-
-let imageLoad;
+let imageLoad: ImageMetadata | undefined;
 let lqipGradient = "";
 const enableLQIP = siteConfig.theme.LQIP;
 
@@ -38,7 +36,10 @@ if (isLocal) {
   } else {
     imageLoad = await imageGetter();
     // 使用封装好的函数
-    if(enableLQIP) lqipGradient = await getLqipGradient(imageLoad.fsPath);
+    if (enableLQIP) {
+      const imageFsPath = path.resolve('src', src.replace(/^[.][/]/, ''));
+      lqipGradient = await getLqipGradient(imageFsPath);
+    }
   }
 }
 ---
