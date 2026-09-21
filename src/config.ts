@@ -7,79 +7,80 @@ import type { FriendLink } from "./types/friend"
 import type { I18nConfig } from "./types/i18n"
 
 export const siteConfig: SiteConfig = {
-    title: "Momo", // Title of the site, used in the tab in the browser and in SEO
-    subTitle: "Blog", // Subtitle of the site
-    rootSiteUrl: "https://momo.motues.top", // Root URL of the site, used for generating absolute URLs for SEO and social sharing
+    title: "Glacier's blog",
+    headerTitle: "GLACIER",
+    subTitle: "",
+    rootSiteUrl: "https://www.glac1er.top",
 
-    favicon: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
+    favicon: "/favicon/icon.png",
 
-    pageSize: 6, // Number of posts per page
+    pageSize: 6,
     toc: {
         enable: true,
-        depth: 3 // Max depth of the table of contents, between 1 and 4
+        depth: 3
     },
     blogNavi: {
-        enable: true // Whether to enable blog navigation in the blog footer
+        enable: true
     },
     comments: {
-        enable: true, // Whether to enable comments
-        platform: "default", // Comment platform, set "default" to use Momo-backend, also supports "twikoo"
-        backendUrl: "https://api-momo.motues.top" // Backend URL for comments
+        enable: true,
+        platform: "default",
+        backendUrl: "https://api-momo.motues.top"
     },
     theme: {
-        AOS: true, // Whether to enable AOS (Animate On Scroll) for animations
-        LQIP: true, // Whether to enable LQIP (Low-Quality Image Placeholder) for image placeholders
-        PhotoSwipe: true, // Whether to enable PhotoSwipe for image viewer
+        AOS: false,
+        LQIP: true,
+        PhotoSwipe: true,
         postCard: {
-            imageMode: "top" // Cover image mode for article cards: "top" shows the image above the content; "background" uses the image as the card background, fading to transparent from right to left
+            imageMode: "top"
         }
     }
 }
 
 export const profileConfig: ProfileConfig = {
-    avatar: "assets/Motues.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-    name: "Motues", // Used in the footer of the blog
-    description: "Life is colorful!", // Used in SEO
-    indexPage: "https://www.motues.top", // The homepage, used in footer and SEO
-    startYear: 2024, // The year the site was created, used in the footer
+    avatar: "assets/Motues.jpg",
+    name: "Motues",
+    description: "Life is colorful!",
+    indexPage: "https://www.motues.top",
+    startYear: 2024,
 }
 
 export const licenseConfig: LicenseConfig = {
-	enable: true, // Whether to enable license information
-	name: "CC BY-NC-SA 4.0", // License name
-	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/", // License URL
+    enable: true,
+    name: "CC BY-NC-SA 4.0",
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
 };
 
 export const i18nConfig: I18nConfig = {
-    defaultLanguage: "zh-cn", // Default language of the site
-    supportedLanguages: ["zh-cn", "en"], // List of supported languages
-    translations: { // Translation content for each supported language
+    defaultLanguage: "zh-cn",
+    supportedLanguages: ["zh-cn", "en"],
+    translations: {
         "zh-cn": {
             Cover: {
                 title: {
-                    home: "欢迎来到 Momo 的博客",
+                    home: "欢迎来到我的博客",
                     archive: "文章归档",
                     about: "关于",
                     friends: "友链",
                 },
                 subTitle: {
-                    home: "生活多彩！",
-                    archive: "共 {count} 篇文章", // {count} will be replaced with the total number of articles
-                    about: "一个极简的Blog模板",
-                    friends: "有趣的灵魂",
+                    home: "",
+                    archive: "共 {count} 篇文章",
+                    about: "",
+                    friends: "",
                 }
             }
         },
         "en": {
             Cover: {
                 title: {
-                    home: "Welcome to Momo's Blog",
+                    home: "Welcome",
                     archive: "Archive",
                     about: "About",
                     friends: "Friends",
                 },
                 subTitle: {
-                    home: "Life is colorful!",
+                    home: "",
                     archive: "Total of {count} articles",
                     about: "A minimalist blog template",
                     friends: "Interesting Souls",
@@ -91,16 +92,15 @@ export const i18nConfig: I18nConfig = {
 
 export const friendLinkConfig: FriendLink[] = [
     {
-        name: 'Motues', // Name of the friend link
-        avatar: 'https://www.motues.top/avatar.jpg', // Avatar image of the friend link
-        url: 'https://www.motues.top', // URL of the friend link
-        description: 'Like River!' // Description of the friend link, set to an empty string if not needed
+        name: 'Motues',
+        avatar: 'https://www.motues.top/avatar.jpg',
+        url: 'https://www.motues.top',
+        description: 'Like River!'
     },
     {
         name: 'Astro',
         avatar: 'https://avatars.githubusercontent.com/u/44914786',
         url: 'https://astro.build',
         description: 'Build fast websites, faster.'
-    }
-    // Add more friend links here
+    },
 ]

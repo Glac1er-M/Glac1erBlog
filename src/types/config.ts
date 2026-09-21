@@ -1,5 +1,7 @@
 export type SiteConfig = {
     title: string;
+    /** Text displayed in the header logo on desktop and mobile. */
+    headerTitle: string;
     subTitle: string;
     rootSiteUrl?: string;
 
