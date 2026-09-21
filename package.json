@@ -9,15 +9,20 @@
     "astro": "astro",
     "newpost": "node script/newpost.js",
     "momo": "node script/momo/index.js",
-    "cms": "cd cms && pnpm dev"
+    "cms": "cd cms && pnpm dev",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/svelte": "^9.0.1",
     "@chinese-fonts/lxgwwenkaibright": "^2.0.0",
+    "@expressive-code/core": "^0.44.2",
+    "@expressive-code/plugin-collapsible-sections": "^0.44.2",
+    "@expressive-code/plugin-line-numbers": "^0.44.2",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource/eb-garamond": "^5.2.7",
+    "@fontsource/noto-sans-sc": "^5.3.0",
     "@fontsource/noto-serif-sc": "^5.2.9",
     "@iconify/svelte": "^5.2.1",
     "@myriaddreamin/typst-ts-node-compiler": "0.7.0-rc2",
@@ -25,6 +30,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "aos": "^2.3.4",
     "astro": "^7.2.1",
+    "astro-expressive-code": "^0.44.2",
     "astro-icon": "^1.1.5",
     "dompurify": "^3.4.2",
     "hastscript": "^9.0.1",
@@ -45,11 +51,15 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.1",
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/fa6-solid": "^1.2.4",
     "@iconify-json/fluent": "^1.2.45",
     "@iconify-json/material-symbols": "^1.2.35",
     "@iconify-json/simple-icons": "^1.2.48",
     "@iconify-json/vscode-icons": "^1.2.29"
-  }
+  },
+  "packageManager": "pnpm@10.33.2"
 }

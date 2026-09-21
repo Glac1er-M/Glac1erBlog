@@ -18,14 +18,19 @@ import { remarkCombined } from './src/plugins/remark-combined.mjs';
 import { remarkTypst } from './src/plugins/remark-typst.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { remarkLqip } from './src/plugins/remark-lqip.js';
+import expressiveCode from 'astro-expressive-code';
 
 import svelte from "@astrojs/svelte";
 
 import { siteConfig, i18nConfig } from './src/config';
 
+const site = process.env.ASTRO_SITE ?? siteConfig.rootSiteUrl ?? 'https://www.glac1er.top';
+const base = process.env.ASTRO_BASE ?? '/';
+
 // https://astro.build/config
 export default defineConfig({
-  site: siteConfig.rootSiteUrl || 'https://momo.motues.top', // Root URL of site
+  site,
+  base,
   i18n: {
     locales: i18nConfig.supportedLanguages,
     defaultLocale: i18nConfig.defaultLanguage,
@@ -34,7 +39,7 @@ export default defineConfig({
       redirectToDefaultLocale: false
     }
   },
-  integrations: [icon({
+  integrations: [expressiveCode(), icon({
     include: {
       "fa6-brands": ["*"],
       "fa6-solid": ["*"],
@@ -45,11 +50,6 @@ export default defineConfig({
     }
   }), svelte()],
   markdown: {
-    shikiConfig: {
-      theme: 'one-dark-pro', // code theme
-      // theme: 'github-dark',
-      wrap: false
-    },
     processor: unified({
       remarkPlugins: [
         remarkMath,
@@ -82,6 +82,11 @@ export default defineConfig({
     })
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    // Typst's compiler loads a platform-specific `.node` binary. Keep it
+    // external during Astro's SSR build instead of parsing it with Rollup.
+    ssr: {
+      external: ['@myriaddreamin/typst-ts-node-compiler']
+    }
   }
 });
