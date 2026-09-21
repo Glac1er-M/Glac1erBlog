@@ -23,6 +23,8 @@ import svelte from "@astrojs/svelte";
 
 import { siteConfig } from './src/config';
 
+import cloudflare from "@astrojs/cloudflare";
+
 const site = process.env.ASTRO_SITE ?? 'https://www.glac1er.top';
 const base = process.env.ASTRO_BASE ?? '/';
 
@@ -30,6 +32,7 @@ const base = process.env.ASTRO_BASE ?? '/';
 export default defineConfig({
   site,
   base,
+
   i18n: {
     locales: ['zh-cn', 'en'],
     defaultLocale: 'zh-cn',
@@ -38,6 +41,7 @@ export default defineConfig({
       redirectToDefaultLocale: false
     }
   },
+
   integrations: [icon({
     include: {
       "fa6-brands": ["*"],
@@ -48,6 +52,7 @@ export default defineConfig({
       "flue": ["*"],
     }
   }), svelte(), expressiveCode()],
+
   markdown: {
     remarkPlugins: [
       remarkMath,
@@ -78,6 +83,7 @@ export default defineConfig({
       ],
     ]
   },
+
   vite: {
     plugins: [tailwindcss()],
     // Typst's compiler loads a platform-specific `.node` binary. It must stay
@@ -85,5 +91,7 @@ export default defineConfig({
     ssr: {
       external: ['@myriaddreamin/typst-ts-node-compiler']
     }
-  }
+  },
+
+  adapter: cloudflare()
 });
