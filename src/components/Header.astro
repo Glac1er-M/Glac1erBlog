@@ -3,15 +3,20 @@ import "@styles/global.css"
 import { Icon } from "astro-icon/components"
 import { profileConfig, siteConfig } from "@/config"
 import ThemeIcon from "./control/ThemeIcon.astro"
-import { baseUrl } from "@utils/url-utils"
+import { baseUrl } from "@utils/urlUtils"
 
 import { i18n } from "astro:config/client";
 import i18nit from '@i18n/translation'
-import { getRelativeLocaleUrl } from '@utils/url-utils';
+import { getRelativeLocaleUrl } from '@utils/urlUtils';
+import { getBlogEntrySort } from '@utils/contentUtils';
 
 const currentLang = Astro.currentLocale || i18n!.defaultLocale;
 const t = i18nit(currentLang);
 const showLanguageSwitcher = (i18n?.locales?.length ?? 0) > 1;
+
+// 收集所有文章分类（含未分类），按名称排序，用于移动端侧边栏
+const blogPosts = await getBlogEntrySort(currentLang);
+const categories = [...new Set(blogPosts.map(post => post.data.category || 'undefined'))].sort();
 
 
 // 获取当前页面在不同语言下的路径
@@ -53,7 +58,7 @@ if (profileConfig.indexPage) {
     <!-- logo -->
     <div class="pr-4 py-2 z-30 header-logo">
         <a href={ indexPage } >
-            <span class="text-[28px] font-bold hover:opacity-60 transition-opacity">{ siteConfig.headerTitle }</span>
+            <span class="text-3xl font-bold hover:opacity-60 transition-opacity">{ siteConfig.title }</span>
         </a>
     </div>
     
@@ -75,18 +80,15 @@ if (profileConfig.indexPage) {
                 <Icon name="fa6-solid:globe" class="w-4 h-4" />
             </button>
             
-          <!-- Language Dropdown Menu -->
           <div id="language-menu" class="hidden absolute right-0 mt-2 w-30 bg-[var(--bg-color)] border border-[var(--button-border-color)] rounded-lg shadow-lg z-50">
               <div class="py-1 text-right">
-                  <!-- 中文链接 -->
-                  <a href={getLocalePath("/", "zh-cn")} class=`block mx-2 my-1 p-2 text-sm rounded ${
-                    currentLang === "zh-cn" ? "bg-[var(--button-hover-color)]" : "hover:bg-[var(--button-hover-color)]"}`>
+                  <a href={getLocalePath("/", "zh-cn")} class={`block mx-2 my-1 p-2 text-sm rounded ${
+                    currentLang === "zh-cn" ? "bg-[var(--button-hover-color)]" : "hover:bg-[var(--button-hover-color)]"}`}>
                     {currentLang === "zh-cn" ? <Icon name="fa6-solid:circle" class="w-2 h-2 inline mr-2" /> : ""}
                     简体中文
                   </a>
-                  <!-- 英文链接 -->
-                  <a href={getLocalePath("/", "en")} class=`block mx-2 my-1 p-2 text-sm rounded ${
-                    currentLang === "en" ? "bg-[var(--button-hover-color)]" : "hover:bg-[var(--button-hover-color)]"}`>
+                  <a href={getLocalePath("/", "en")} class={`block mx-2 my-1 p-2 text-sm rounded ${
+                    currentLang === "en" ? "bg-[var(--button-hover-color)]" : "hover:bg-[var(--button-hover-color)]"}`}>
                     {currentLang === "en" ? <Icon name="fa6-solid:circle" class="w-2 h-2 inline mr-2" /> : ""}
                     English
                   </a>
@@ -148,7 +150,7 @@ if (profileConfig.indexPage) {
     <div id="mobile-menu-drawer" class="absolute top-0 left-0 bottom-0 w-[70%] max-w-[300px] bg-[var(--bg-color)] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
         
         <div class="flex items-center justify-between p-5 border-b border-[var(--button-border-color)]">
-            <span class="text-xl font-bold header-logo">{ siteConfig.headerTitle }</span>
+            <span class="text-xl font-bold header-logo">{ siteConfig.title }</span>
             <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[var(--button-hover-color)] transition-colors">
                 <Icon name="fa6-solid:xmark" class="w-5 h-5" />
             </button>
@@ -173,6 +175,34 @@ if (profileConfig.indexPage) {
             </a>
         </nav>
 
+        <!-- 分类栏：可点击收起，与默认链接之间用横线分割 -->
+        {categories.length > 0 && (
+        <div class="mt-2">
+        <div class="w-[90%] mx-auto border-t border-[var(--button-border-color)]"></div>
+        <div class="px-2 pt-1 pb-3">
+            <button id="mobile-category-toggle" aria-expanded="false" class="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] transition-colors">
+                <span class="flex items-center gap-3 text-[var(--text-color)]">
+                    <Icon name="fa6-solid:tags" class="w-4 h-4 opacity-70" />
+                    <span>{t("category")}</span>
+                </span>
+                <Icon id="mobile-category-chevron" name="fa6-solid:chevron-down" class="w-4 h-4 opacity-70 transition-transform duration-300" />
+            </button>
+
+            <div id="mobile-category-list" class="overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0px">
+                <ul class="flex flex-wrap gap-2 px-3 pt-3 pb-1">
+                    {categories.map(cat => (
+                        <li>
+                            <a href={getRelativeLocaleUrl(currentLang, `/archives/?category=${encodeURIComponent(cat)}`)} class="inline-flex items-center px-3 py-1.5 text-sm rounded-md border border-[var(--button-border-color)] text-[var(--text-color)] transition-all duration-200 hover:border-[var(--link-color)] hover:bg-[var(--button-hover-color)] active:bg-[var(--button-hover-color)] active:text-[var(--link-color)] active:scale-95">
+                                {cat === 'undefined' ? t("pagecard.uncategorized") : cat}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+        </div>
+        )}
+
         <div class="mt-auto p-5 border-t border-[var(--button-border-color)] flex gap-1 text-sm opacity-70">
              <!-- <a href={getLocalePath("/", "zh-cn")} class="text-sm opacity-70 active:text-[var(--link-color)]">简体中文</a>
              <a href={getLocalePath("/", "en")} class="text-sm opacity-70 active:text-[var(--link-color)]">English</a> -->
@@ -183,23 +213,24 @@ if (profileConfig.indexPage) {
 
 <style is:global>
 .header-logo {
-  font-family: "Futura LT Pro", "EB Garamond", "Noto Serif SC", "STZhongsong", serif;
+  font-family: "EB Garamond", cursive;
   letter-spacing: 1px;
-}
-#nav-bar {
-  font-family: "Noto Sans SC", sans-serif;
-}
-#mobile-menu-drawer nav {
-  font-family: "Noto Sans SC", sans-serif;
 }
   /* 移动端 (小于 776px) 的毛玻璃和阴影 */
   @media (max-width: 775px) {
     #main-header {
-      /* 背景使用带透明度的变量颜色，配合 blur */
-      background-color: rgba(var(--bg-color, 255, 255, 255), 0.7); 
-      backdrop-filter: blur(12px);
+      /* 半透明主题背景 + blur 实现毛玻璃。*/
+      background-color: color-mix(in srgb, var(--bg-color) 40%, transparent);
+      /* 注意：构建时的 CSS 压缩器会把 backdrop-filter 与 -webkit-backdrop-filter 当作同一属性合并，
+         只保留后写的那一条。因此标准属性必须单独放进 @supports 规则里，否则构建后会被删掉，
+         导致 Firefox 等只支持标准属性的浏览器在 preview 里失去毛玻璃效果。 */
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(var(--button-border-color, 0, 0, 0), 0.1);
+      border-bottom: 1px solid color-mix(in srgb, var(--button-border-color) 10%, transparent);
+    }
+    @supports (backdrop-filter: blur(1px)) {
+      #main-header {
+        backdrop-filter: blur(12px);
+      }
     }
   }
 
@@ -275,6 +306,27 @@ function initMobileNav() {
 
 document.addEventListener('DOMContentLoaded', initMobileNav);
 document.addEventListener('astro:page-load', initMobileNav);
+</script>
+<script>
+function initCategoryAccordion() {
+  const toggle = document.getElementById('mobile-category-toggle');
+  const list = document.getElementById('mobile-category-list');
+  const chevron = document.getElementById('mobile-category-chevron');
+
+  if (!toggle || !list) return;
+  if (toggle.dataset.bound === 'true') return;
+  toggle.dataset.bound = 'true';
+
+  toggle.addEventListener('click', () => {
+    // 用 max-height 过渡实现收起/展开，避免 grid-template-rows 过渡导致的反复重排卡顿
+    const collapsed = list.style.maxHeight === '0px' || list.style.maxHeight === '0rem' || list.style.maxHeight === '0';
+    list.style.maxHeight = collapsed ? '20rem' : '0px';
+    // 箭头方向与面板状态对应：展开(下拉)时朝上，折叠(上拉)时朝下
+    chevron?.classList.toggle('rotate-180', collapsed);
+    toggle.setAttribute('aria-expanded', String(collapsed));
+  });
+}
+document.addEventListener('astro:page-load', initCategoryAccordion);
 </script>
 <script>
 function initLanguageMenu() {

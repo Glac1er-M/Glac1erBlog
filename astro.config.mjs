@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from "@tailwindcss/vite";
 import icon from 'astro-icon';
 import remarkMath from 'remark-math';
@@ -17,22 +18,17 @@ import { remarkCombined } from './src/plugins/remark-combined.mjs';
 import { remarkTypst } from './src/plugins/remark-typst.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { remarkLqip } from './src/plugins/remark-lqip.js';
-import expressiveCode from 'astro-expressive-code';
 
 import svelte from "@astrojs/svelte";
 
-import { siteConfig } from './src/config';
-
-const site = process.env.ASTRO_SITE ?? 'https://www.glac1er.top';
-const base = process.env.ASTRO_BASE ?? '/';
+import { siteConfig, i18nConfig } from './src/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site,
-  base,
+  site: siteConfig.rootSiteUrl || 'https://momo.motues.top', // Root URL of site
   i18n: {
-    locales: ['zh-cn', 'en'],
-    defaultLocale: 'zh-cn',
+    locales: i18nConfig.supportedLanguages,
+    defaultLocale: i18nConfig.defaultLanguage,
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false
@@ -45,45 +41,47 @@ export default defineConfig({
       "simple-icons": ["*"],
       "vscode-icons": ["*"],
       "material-symbols": ["*"],
-      "flue": ["*"],
+      "fluent": ["*"],
     }
-  }), svelte(), expressiveCode()],
+  }), svelte()],
   markdown: {
-    remarkPlugins: [
-      remarkMath,
-      remarkReadingTime,
-      remarkDirective,
-      remarkTypst,
-      parseDirectiveNode,
-      remarkCombined,
-      [remarkLqip, { enable: siteConfig.theme.LQIP }],
-    ],
-    rehypePlugins: [
-      rehypeKatex,
-      customFigurePlugin,
-      [
-        rehypeComponents,
-        {
-          components: {
-            github: GithubCardComponent,
-            music: MusicCardComponent,
-            quote: QuoteComponent,
-            note: admonition("note"),
-            tip: admonition("tip"),
-            important: admonition("important"),
-            caution: admonition("caution"),
-            warning: admonition("warning"),
-          },
-        },
+    shikiConfig: {
+      theme: 'one-dark-pro', // code theme
+      // theme: 'github-dark',
+      wrap: false
+    },
+    processor: unified({
+      remarkPlugins: [
+        remarkMath,
+        remarkReadingTime,
+        remarkDirective,
+        remarkTypst,
+        parseDirectiveNode,
+        remarkCombined,
+        [remarkLqip, { enable: siteConfig.theme.LQIP }],
       ],
-    ]
+      rehypePlugins: [
+        rehypeKatex,
+        customFigurePlugin,
+        [
+          rehypeComponents,
+          {
+            components: {
+              github: GithubCardComponent,
+              music: MusicCardComponent,
+              quote: QuoteComponent,
+              note: admonition("note"),
+              tip: admonition("tip"),
+              important: admonition("important"),
+              caution: admonition("caution"),
+              warning: admonition("warning"),
+            },
+          },
+        ],
+      ]
+    })
   },
   vite: {
-    plugins: [tailwindcss()],
-    // Typst's compiler loads a platform-specific `.node` binary. It must stay
-    // external during Astro's SSR build instead of being parsed by Rollup.
-    ssr: {
-      external: ['@myriaddreamin/typst-ts-node-compiler']
-    }
+    plugins: [tailwindcss()]
   }
 });

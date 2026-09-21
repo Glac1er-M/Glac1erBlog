@@ -1,4 +1,5 @@
 import type { Translation } from "@i18n/key";
+import { i18nConfig } from "../../config"
 
 const translation: Translation = {
     header: {
@@ -7,20 +8,7 @@ const translation: Translation = {
         about: "关于",
         friends: "友链",
     },
-    cover: {
-        title: {
-            home: "欢迎来到我的博客",
-            archive: "文章归档",
-            about: "关于",
-            friends: "友链",
-        },
-        subTitle: {
-            home: "",
-            archive: "共 {count} 篇文章",
-            about: "",
-            friends: "",
-        }
-    },
+    cover: i18nConfig.translations["zh-cn"].Cover,
     toc: "目录",
     category: "分类",
     pageNavigation: {
@@ -108,8 +96,8 @@ const translation: Translation = {
         description: "此文章为草稿，只出现在测试环境，生产环境将不会显示。"
     },
     page404: {
-        title: "404",
-        subTitle: "页面尚未创建！",
+        title: "404 - 虚无之境",
+        subTitle: "看起来你闯入了一片代码荒原，这里还没有被开发出来。",
         backToHome: "返回首页",
         backToPreview: "返回上一页",
         errorCode: "错误代码：404 - 虚无之境",

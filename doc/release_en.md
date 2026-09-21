@@ -12,20 +12,54 @@ Blog text, images, and other content are stored in the `src/content/`, `src/asse
 
 You can directly clone this project, then overwrite the new project with your original configuration files. Run `pnpm install` to install dependencies, followed by `pnpm build` for local compilation. Finally, execute `pnpm preview` to preview the compiled project.
 
+When updating inside this repository, run `pnpm momo update`: it backs up your own `src/config.ts` to `.backup/`, pulls the remote update, installs dependencies, and finally lists the **configuration files that need to be merged by hand**. If something goes wrong with `src/config.ts` afterwards, `pnpm momo restore` rolls it back to the state before the update.
+
 ## Version Number Changed
 
 Whenever the version number changes, the modification log will be updated here. Refer to the specific log entries to modify the corresponding configuration files.
 
 Below are general modification suggestions.
 
-* **`astro.config.mjs` Modifications**: Typically just overwrite the file, then update the `site` and `i18n` fields in `siteConfig` with your own information.
+* **`astro.config.mjs` Modifications**: Typically just overwrite the file. Its `site` and `i18n` fields are read from `siteConfig.rootSiteUrl`, `i18nConfig.defaultLanguage` and `i18nConfig.supportedLanguages` in `src/config.ts`.
 * **`config.ts` Modifications**: Update `config.ts` by adding or modifying configuration items as required.
 * **`content.config.ts` Modifications**: Typically involves adding new frontmatter configurations to articles. Add the required new configuration items to articles as specified.
-* **`src/i18n/` Modifications**: Generally involves adding new internationalization translations. Simply overwrite the files, then ensure to modify the `cover.title` and `cover.subtitle` fields with your own information.
+* **`src/i18n/` Modifications**: Generally involves adding new internationalization translations; simply overwrite the files. Note that the Cover text of each page (`cover.title` / `cover.subTitle`) has moved into `i18nConfig.translations` in `src/config.ts` — edit it there.
 
 ## Version Information
 
 > Version numbers follow the `YY.MM.DD` format
+
+### 26.9.10
+
+> This update contains **breaking configuration changes**. Please read the release notes below carefully!
+
+* Standardized the `config.ts` configuration file to centrally manage the default language, supported languages, and cover text for each page
+* Added the command-line tool `pnpm momo`, which supports functions such as backing up, restoring, and updating configurations
+* Redesigned the 404 page; made minor adjustments to the spacing between footer icons
+* Standardized the naming convention for utility functions
+* Updated the CMS admin panel; fixed the issue of slow article information retrieval; added support for column widths to adapt automatically to content in the article list
+* This update made changes to the configuration files `src/config.ts`, `src/i18n/language/*.ts`, and `astro.config.mjs`:
+    * `src/config.ts`: Added `i18nConfig` and added `rootSiteUrl` to `siteConfig`
+    * `src/i18n/language/*.ts`: Removed the original `cover` field; now referenced from `config.ts`
+    * `astro.config.mjs`: Updated the `site` and `i18n` sections to reference the configuration in `src/config.ts`
+* After the update, you’ll need to clear the local cache (`node_modules`, `.astro`, `dist`) and run `pnpm install` again. You can use `pnpm momo clean --all` to do this quickly
+
+### 26.8.15
+
+> This is a breaking update. Please read the release notes below carefully!
+
+* This update upgrades the project from Astro5 to Astro7. The old version has been archived to the `v5` branch and will no longer be maintained
+* Astro7 requires Node.js version >= 22; we recommend using version 24 LTS. After upgrading, you must clear your local cache (folders such as `/node_modules`) before you can compile and preview locally
+* This update modifies the configuration files `content.config.ts` and `astro.config.mjs`
+* If you encounter any issues after upgrading, please feel free to submit an issue to provide feedback
+
+Translated with DeepL.com (free version)
+
+### 26.8.12
+
+* Home page post cards now support two image display styles and are optimized for mobile devices
+* Fixed an issue where the language selection button was hidden in single-language mode
+* This update modifies the `config.ts` configuration file by adding the `theme.postCard` field; you must add this new field when updating
 
 ### 26.6.2
 

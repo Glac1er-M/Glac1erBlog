@@ -270,7 +270,7 @@
 <div class="mt-4 max-w-3xl mx-auto border-t border-[var(--button-border-color)]" id="comments">
   <!-- <div class="my-6 border border-[var(--text-color)]/70"></div> -->
   <!-- 评论输入 -->
-  <div class="mt-4">
+  <div data-aos="fade-up" class="mt-4">
     <form on:submit|preventDefault={() => submitComment()} class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="">
@@ -328,8 +328,12 @@
       </div>
 
       <div class="flex justify-end gap-3">
-      <button type="button" on:click={togglePreview}
-          class="rounded px-4 py-2 text-sm font-medium text-[var(--text-color)] border border-[var(--button-border-color)] hover:bg-[var(--button-hover-color)]">
+        <button
+          type="button"
+          on:click={togglePreview}
+          disabled={!showPreview && !content.trim()}
+          class="rounded px-4 py-2 text-sm font-medium text-[var(--text-color)] border border-[var(--button-border-color)] hover:bg-[var(--button-hover-color)] disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           {showPreview ? t('comments.write') : t('comments.preview')}
         </button>
         <button type="submit" disabled={submitting || !isContentWithinLimit(content)}
@@ -343,11 +347,11 @@
   <!-- 评论区 -->
   <div class="" id="comments-content">
     {#if !loadingMore && loading}
-      <p class="text-[var(--text-color)] text-center">{t('comments.loading') || '正在加载评论...'}</p>
+      <p data-aos="fade-up" class="text-[var(--text-color)] text-center">{t('comments.loading') || '正在加载评论...'}</p>
     {:else if error}
-      <p class="text-red-500 text-center">{t('comments.loadFailed') || '加载失败：'}{error}</p>
+      <p data-aos="fade-up" class="text-red-500 text-center">{t('comments.loadFailed') || '加载失败：'}{error}</p>
     {:else}
-      <h4 class="text-[var(--text-color)] text-base font-semibold mb-4">{countComments(comments)} {t('comments.comments')}</h4>
+      <h4 data-aos="fade-up" class="text-[var(--text-color)] text-base font-semibold mb-4">{countComments(comments)} {t('comments.comments')}</h4>
 
       <div class="space-y-6">
         {#each comments as c}
@@ -375,7 +379,7 @@
         <div class="flex justify-center mt-8">
           <button on:click={() => { page++; loadComments(true); }}
             disabled={loadingMore}
-            class="px-6 py-2.5 rounded-lg border border-[var(--button-border-color)] text-sm font-medium text-[var(--text-color)] bg-transparent hover:bg-[var(--button-hover-color)] hover:border-[var(--link-color)] transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            class="px-6 py-2.5 w-full text-sm font-medium text-[var(--text-color)] bg-transparent hover:bg-[var(--button-hover-color)] active:bg-[var(--button-hover-color)] transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
             {#if loadingMore}
               <svg class="animate-spin h-4 w-4 text-[var(--text-color)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

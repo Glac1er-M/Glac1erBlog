@@ -1,7 +1,7 @@
 ---
 import { i18n } from "astro:config/client";
 import i18nit from '@i18n/translation'
-import { getRelativeLocaleUrl } from '@utils/url-utils';
+import { getRelativeLocaleUrl } from '@utils/urlUtils';
 
 const { page } = Astro.props;
 
@@ -53,7 +53,7 @@ const btnActiveProps = "text-[var(--text-color)] hover:bg-[var(--button-hover-co
 const btnDisabledProps = "text-[var(--text-color-30)] border-[var(--button-border-color)] opacity-40 cursor-not-allowed pointer-events-none";
 ---
 
-<nav class="flex flex-row justify-between items-center gap-1 my-8 max-w-[var(--page-width)] mx-auto text-sm">
+<nav data-aos="fade-up" class="flex flex-row justify-between items-center gap-1 my-8 max-w-[var(--page-width)] mx-auto text-sm">
   
   <a 
     href={showPrevious ? getRelativeLocaleUrl(currentLang, getPageUrl(currentPage - 1)) : "#"} 
