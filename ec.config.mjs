@@ -9,10 +9,11 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
  * component scripts, and global CSS do not each control code blocks.
  */
 export default defineEcConfig({
-  // These names deliberately match the site's existing `data-theme` values.
+  // Keep the code block theme in sync with the site's light/dark toggle.
   themes: ['github-light', 'aurora-x'],
   useDarkModeMediaQuery: false,
-  themeCssSelector: (theme) => `[data-theme="${theme.type}"]`,
+  themeCssSelector: (theme) =>
+    theme.type === 'dark' ? '[data-theme="dark"]' : '[data-theme="light"]',
   plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
 
   frames: {

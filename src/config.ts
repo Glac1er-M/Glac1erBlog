@@ -38,10 +38,10 @@ export const siteConfig: SiteConfig = {
 }
 
 export const profileConfig: ProfileConfig = {
-    avatar: "assets/Motues.jpg",
-    name: "Motues",
-    description: "Life is colorful!",
-    indexPage: "https://www.motues.top",
+    avatar: "/favicon/icon.png",
+    name: "Glacier",
+    description: "glacier's blog",
+    indexPage: "https://www.glac1er.top",
     startYear: 2024,
 }
 
@@ -92,15 +92,9 @@ export const i18nConfig: I18nConfig = {
 
 export const friendLinkConfig: FriendLink[] = [
     {
-        name: 'Motues',
-        avatar: 'https://www.motues.top/avatar.jpg',
-        url: 'https://www.motues.top',
-        description: 'Like River!'
-    },
-    {
-        name: 'Astro',
-        avatar: 'https://avatars.githubusercontent.com/u/44914786',
-        url: 'https://astro.build',
-        description: 'Build fast websites, faster.'
+        name: 'zizimiku',
+        avatar: '',
+        url: 'https://userzbb.github.io',
+        description: '可爱泉此方'
     },
 ]

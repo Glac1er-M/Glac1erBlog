@@ -25,3 +25,9 @@ pnpm-debug.log*
 
 # vscode setting folder
 .vscode/
+
+# pnpm store (should not be committed)
+.pnpm-store/
+
+# task input materials (not part of the blog)
+要求和所需材料/
