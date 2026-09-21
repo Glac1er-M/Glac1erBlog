@@ -147,7 +147,7 @@ if (profileConfig.indexPage) {
 <div id="mobile-menu-container" class="fixed inset-0 z-[100] hidden">
     <div id="mobile-menu-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 ease-in-out"></div>
     
-    <div id="mobile-menu-drawer" class="absolute top-0 left-0 bottom-0 w-[70%] max-w-[300px] bg-[var(--bg-color)] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div id="mobile-menu-drawer" style={`--mobile-header-nav-font-size: ${siteConfig.theme.header.mobileNavFontSize};`} class="absolute top-0 left-0 bottom-0 w-[70%] max-w-[300px] bg-[var(--bg-color)] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
         
         <div class="flex items-center justify-between p-5 border-b border-[var(--button-border-color)]">
             <span class="text-xl font-bold header-logo">{ siteConfig.headerTitle }</span>
@@ -157,20 +157,16 @@ if (profileConfig.indexPage) {
         </div>
 
         <nav class="flex flex-col py-4 px-2">
-            <a href={ indexPage } class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
-                <Icon name="fa6-solid:house" class="w-4 h-4 opacity-70" />
+            <a href={ indexPage } class="flex items-center justify-center px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
                 <span>{t("header.home")}</span>
             </a>
-            <a href={ archivesPage } class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
-                <Icon name="fa6-solid:book-bookmark" class="w-4 h-4 opacity-70" />
+            <a href={ archivesPage } class="flex items-center justify-center px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
                 <span>{t("header.archive")}</span>
             </a>
-            <a href={ aboutPage } class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
-                <Icon name="fa6-solid:user" class="w-4 h-4 opacity-70" />
+            <a href={ aboutPage } class="flex items-center justify-center px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
                 <span>{t("header.about")}</span>
             </a>
-            <a href={ friendsPage } class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
-                <Icon name="fa6-solid:link" class="w-4 h-4 opacity-70" />
+            <a href={ friendsPage } class="flex items-center justify-center px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] hover:text-[var(--link-color)] transition-colors active:bg-[var(--button-hover-color)] active:text-[var(--link-color)]">
                 <span>{t("header.friends")}</span>
             </a>
         </nav>
@@ -180,12 +176,9 @@ if (profileConfig.indexPage) {
         <div class="mt-2">
         <div class="w-[90%] mx-auto border-t border-[var(--button-border-color)]"></div>
         <div class="px-2 pt-1 pb-3">
-            <button id="mobile-category-toggle" aria-expanded="false" class="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] transition-colors">
-                <span class="flex items-center gap-3 text-[var(--text-color)]">
-                    <Icon name="fa6-solid:tags" class="w-4 h-4 opacity-70" />
-                    <span>{t("category")}</span>
-                </span>
-                <Icon id="mobile-category-chevron" name="fa6-solid:chevron-down" class="w-4 h-4 opacity-70 transition-transform duration-300" />
+            <button id="mobile-category-toggle" aria-expanded="false" class="relative w-full flex items-center justify-center px-4 py-3 rounded-lg hover:bg-[var(--button-hover-color)] transition-colors">
+                <span class="text-[var(--text-color)]">{t("category")}</span>
+                <Icon id="mobile-category-chevron" name="fa6-solid:chevron-down" class="absolute right-4 w-4 h-4 opacity-70 transition-transform duration-300" />
             </button>
 
             <div id="mobile-category-list" class="overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0px">
@@ -219,8 +212,11 @@ if (profileConfig.indexPage) {
 #nav-bar {
   font-family: "Noto Sans SC", sans-serif;
 }
-#mobile-menu-drawer nav {
+#mobile-menu-drawer nav a,
+#mobile-category-toggle {
   font-family: "Noto Sans SC", sans-serif;
+  font-size: var(--mobile-header-nav-font-size, 1rem);
+  font-weight: 700;
 }
   /* 移动端 (小于 776px) 的毛玻璃和阴影 */
   @media (max-width: 775px) {

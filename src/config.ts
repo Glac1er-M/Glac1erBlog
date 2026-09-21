@@ -31,6 +31,9 @@ export const siteConfig: SiteConfig = {
         AOS: false,
         LQIP: true,
         PhotoSwipe: true,
+        header: {
+            mobileNavFontSize: "1.08rem"
+        },
         postCard: {
             imageMode: "top"
         }

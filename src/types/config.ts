@@ -24,6 +24,10 @@ export type SiteConfig = {
         AOS: boolean;
         LQIP: boolean;
         PhotoSwipe: boolean;
+        header: {
+            /** CSS font-size for the five primary mobile navigation items. */
+            mobileNavFontSize: string;
+        };
         postCard: {
             imageMode: "top" | "background"; 
         };
