@@ -20,13 +20,25 @@ export async function getStaticPaths() {
 // 获取所有博客文章并按发布日期降序排序
 const allBlogPosts = await getBlogEntrySort(currentLang);
 
+// 归档页只需要列表展示和分类筛选所需的字段，避免把正文、rendered HTML
+// 以及其它文章元数据序列化到 client:only 的 Svelte 组件中。
+const archivePosts = allBlogPosts.map(({ id, data, isFallback }) => ({
+    id,
+    data: {
+        title: data.title,
+        pubDate: data.pubDate,
+        category: data.category,
+    },
+    isFallback,
+}));
+
 const pageTitle = t("header.archive") + " - " + siteConfig.title;
 ---
 
 <MainPageLayout title={pageTitle} lang={currentLang}>
     <ArchivePanel
         client:only="svelte"
-        sortedPosts={allBlogPosts}
+        sortedPosts={archivePosts}
         currentLang={currentLang}
         defaultLocale={i18n!.defaultLocale}
     />
